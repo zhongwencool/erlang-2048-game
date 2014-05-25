@@ -1,0 +1,14 @@
+0 . prework
+    intall erlang and set erlang PATH.
+1. compile
+     double click ./bat/compile.bat
+ 2. run
+     double cilck ./bat/center_server.bat
+ 3. run 
+     double click ./bat/player1.bat
+
+3. Tip
+	A ---> left
+	D ---> right
+	S ---> down
+	W ---> up
