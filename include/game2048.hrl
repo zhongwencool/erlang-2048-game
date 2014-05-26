@@ -11,6 +11,8 @@
 
 -include_lib("wx/include/wx.hrl").
 
+-define(CENTER_NODE,'game2048_center@127.0.0.1').
+
 -define(TC(Cmd), tc(fun() -> Cmd end, ?MODULE, ?LINE)).
 
 -define(NEW,   121).

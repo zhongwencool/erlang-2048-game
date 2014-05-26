@@ -44,7 +44,7 @@ init([ParentObj, ParentPid]) ->
     OutSz = wxStaticBoxSizer:new(?wxVERTICAL, Panel, [{label, "Chat message:"}]),
     InputSz = wxStaticBoxSizer:new(?wxVERTICAL, Panel,[{label, "Enter your words:"}]),
 
-    OutTextCtrl = wxTextCtrl:new(Panel, 2, [{value, "Have a try! \n You are great! \n "}, {style, ?wxTE_DONTWRAP bor ?wxTE_MULTILINE},{size,{100,100}}]),
+    OutTextCtrl = wxTextCtrl:new(Panel, 2, [{value, "Have a try! \n You are great! \n "}, {style, ?wxTE_DONTWRAP bor ?wxTE_MULTILINE},{size,{100,90}}]),
     InputTextCtrl  = wxTextCtrl:new(Panel, 1, [{value, "Welcome"}, {style, ?wxDEFAULT}]),
 
     %% Add to sizers

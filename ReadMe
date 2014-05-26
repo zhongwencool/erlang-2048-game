@@ -1,14 +1,18 @@
 0 . prework
     intall erlang and set erlang PATH.
-1. compile
+1. config
+    change your center name is game2048.hrl, make sure game2048_center@IP
+    change ./bat/center_server.bat node name :game2048_center@IP
+      for example: game2048_center@127.0.0.1
+2. compile
      double click ./bat/compile.bat
- 2. run
-     double cilck ./bat/center_server.bat
- 3. run 
+4.  set center_server up to make sure online game is ok.
+     double click ./bat/center_server.bat
+4. run game2048 client
      double click ./bat/player1.bat
 
-3. Tip
-	A ---> left
-	D ---> right
-	S ---> down
-	W ---> up
+5. Tip
+	5.1 A ---> left D ---> right S ---> down W ---> up
+	5.2 Save game : File -> Save game
+	5.3 play game with other : online -> signup (set a new name) -> click "<-" button right to begin
+	5.4 chat with other : write msg in blew dialogue, print Enter to send msg.

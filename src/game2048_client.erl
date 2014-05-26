@@ -23,7 +23,6 @@
 
 -record(state,{center_state,name="NotSignUp",other_client}).
 
--define(CENTER_NODE,'game2048_center_server@127.0.0.1').
 %%%===================================================================
 %%% API
 %%%===================================================================
@@ -109,8 +108,8 @@ handle_info(loop_second,State) ->
 handle_info(connect_center_ok,State) ->
     {noreply,State#state{center_state= node_connected}};
 
-handle_info({center_respond_client_ok,CloudPID},State) ->
-    {noreply,State#state{center_state={available,CloudPID}}};
+handle_info({center_respond_client_ok,CenterPID},State) ->
+    {noreply,State#state{center_state={available,CenterPID}}};
 
 handle_info({send_chat_msg_to_center,Node,Msg},State = #state{center_state = {_,CenterPID}}) ->
     game2048_center:client_to_center_chat(CenterPID,Node,Msg),
@@ -164,31 +163,32 @@ code_change(_OldVsn, State, _Extra) ->
 %%%===================================================================
 %% not connect center node yet
 do_loop( State = #state{center_state=undefined}) ->
-    io:format("connecting center server node~n "),
+    io:format("connecting center server:~p,node~n ",[?CENTER_NODE]),
     SelfPID = erlang:self(),
-    erlang:spawn(fun() -> do_connect_cloud(SelfPID) end),
+    erlang:spawn(fun() -> do_connect_center(SelfPID) end),
     State;
 %% node connected but not sure center server is alive
 do_loop( State = #state{center_state= node_connected}) ->
-    io:format("confriming center server is ok:~n"),
-    connect_to_cloud_server(),
+    io:format("confriming ~p,center server is ok:~n",[?CENTER_NODE]),
+    connect_to_center_server(),
     State;
 %% center server working ok
-do_loop( State = #state{center_state={available,_CloudPID}}) ->
+do_loop( State = #state{center_state={available,_centerPID}}) ->
+    %%io:format("~p:center server is up:~n",[?CENTER_NODE]),
     State.
 
-do_connect_cloud(ParentPID) ->
+do_connect_center(ParentPID) ->
     true = erlang:set_cookie(?CENTER_NODE, 'game2048'),
     case net_kernel:connect_node(?CENTER_NODE) of
         true -> erlang:send(ParentPID,connect_center_ok);
         _ -> ignore
     end.
 
-%% connect to cloud_server app
-connect_to_cloud_server() ->
+%% connect to center_server app
+connect_to_center_server() ->
     case rpc:call(?CENTER_NODE, erlang, whereis, [game2048_center]) of
-        CloudPID when erlang:is_pid(CloudPID)  ->
-            game2048_center:client_to_center_app(CloudPID,#player{pid = self(),node = node()});
+        CenterPID when erlang:is_pid(CenterPID)  ->
+            game2048_center:client_to_center_app(CenterPID,#player{pid = self(),node = node()});
         _Err ->
             io:format("rpc call error~p~n",[_Err]),
             net_kernel:disconnect(?CENTER_NODE)
