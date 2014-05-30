@@ -16,7 +16,8 @@
 -include("game2048.hrl").
 
 start() ->
-    spawn_link(fun() -> init(quit) end).
+    erlang:spawn_link(fun() -> init(quit) end),
+    {ok,self()}.
 
 init(Halt) ->
     ?TC(game2048_gui:new(self())),
