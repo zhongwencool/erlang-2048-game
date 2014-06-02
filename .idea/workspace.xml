@@ -32,7 +32,7 @@
       <file leaf-file-name="game2048_client.erl" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/game2048_client.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="95" column="26" selection-start="2950" selection-end="2950" vertical-scroll-proportion="0.33280757" vertical-offset="1784" max-vertical-offset="4410">
+            <state line="204" column="7" selection-start="7177" selection-end="7177" vertical-scroll-proportion="0.80126184" vertical-offset="3776" max-vertical-offset="4410">
               <folding />
             </state>
           </provider>
@@ -656,7 +656,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game2048_client.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="26" selection-start="2950" selection-end="2950" vertical-scroll-proportion="0.33280757" vertical-offset="1784" max-vertical-offset="4410">
+        <state line="204" column="7" selection-start="7177" selection-end="7177" vertical-scroll-proportion="0.80126184" vertical-offset="3776" max-vertical-offset="4410">
           <folding />
         </state>
       </provider>
