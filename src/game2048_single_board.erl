@@ -44,17 +44,13 @@ init([ParentObj, ParentPid]) ->
 
     Win = wxPanel:new(ParentObj, [{style,?wxFULL_REPAINT_ON_RESIZE}]),%%
     wxWindow:setFocus(Win), % Get keyboard focus
-    wxWindow:setSizeHints(Win, {250*2,250*2}),
+    wxWindow:setSizeHints(Win, {250*2-100,250*2-100}),
     wxWindow:connect(Win, paint,  [callback]),%% callback paint event init 4*4line
     wxWindow:connect(Win, size,  []),
     wxWindow:connect(Win, key_up, [{skip, true}]),
 
     %% Init pens and fonts
-    Pen = wxPen:new({0,0,0}, [{width, 3}]),
-    Fs0  = [{1 ,wxFont:new(80 , ?wxSWISS, ?wxNORMAL, ?wxNORMAL,[])},
-        {2 ,wxFont:new(65 , ?wxSWISS, ?wxNORMAL, ?wxNORMAL,[])},
-        {3 ,wxFont:new(45 , ?wxSWISS, ?wxNORMAL, ?wxNORMAL,[])},
-        {4 ,wxFont:new(35 , ?wxSWISS, ?wxNORMAL, ?wxNORMAL,[])}],
+    {Pen,Fs0} = game2048_lib:init_pen_fs(),
 
     TestDC  = wxMemoryDC:new(),
     Bitmap = wxBitmap:new(256,256),
@@ -170,7 +166,7 @@ draw_number(DC,Fonts,#pos{xy={PosX, PosY}, val = Num}) ->
     wxDC:setTextForeground(DC,Color),
     wxDC:setFont(DC,F),
 
-    wxDC:drawText(DC, NumList, {(PosX-1)*120+XInit,YInit+(PosY-1)*120}),
+    wxDC:drawText(DC, NumList, {(PosX-1)*95+XInit,YInit+(PosY-1)*95}),
     ok.
 
 draw_board(DC,{W0,H0},#state{pen=Pen}) ->
@@ -211,7 +207,8 @@ do_right2(Board,OldScore,Name) ->
         {BoardListT4,ScoreT} = merge_list(BoardListT3,right),
         {BoardListT4++Acc,Acc1+ScoreT}
     end, {[],0}, BoardListT),
-    {add_new_num(NewBoardList1,Score,OldScore,Name),Score}.
+    HasChange = is_change(NewBoardList1,Board),
+    {add_new_num(NewBoardList1,Score,OldScore,Name,HasChange),Score}.
 
 do_left(State=#state{board=Board,score = OldScore,name = Name}) ->
     {NewBoard,AddScore} = do_left2(Board,OldScore,Name),
@@ -232,7 +229,8 @@ do_left2(Board,OldScore,Name) ->
         {BoardListT4,ScoreT} = merge_list(BoardListT3,left),
         {BoardListT4++Acc,ScoreT+Acc1}
     end, {[],0}, BoardListT),
-    {add_new_num(NewBoardList1,Score,OldScore,Name),Score}.
+    HasChange = is_change(NewBoardList1,Board),
+    {add_new_num(NewBoardList1,Score,OldScore,Name,HasChange),Score}.
 
 do_up(State=#state{board=Board,score = OldScore,name = Name}) ->
     {NewBoard, AddScore} = do_up2(Board,OldScore,Name),
@@ -252,7 +250,8 @@ do_up2(Board,OldScore,Name) ->
         {BoardListT4,ScoreT} = merge_list(BoardListT3,up),
         {BoardListT4++Acc,ScoreT+Acc1}
     end, {[],0}, BoardListT),
-    {add_new_num(NewBoardList1,Score,OldScore,Name),Score}.
+    HasChange = is_change(NewBoardList1,Board),
+    {add_new_num(NewBoardList1,Score,OldScore,Name,HasChange),Score}.
 
 do_down(State=#state{board=Board, score = OldScore,name =Name}) ->
     {NewBoard,AddScore} = do_down2(Board,OldScore,Name),
@@ -273,7 +272,8 @@ do_down2(Board,OldScore,Name) ->
         {BoardListT4,ScoreT} = merge_list(BoardListT3,down),
         {BoardListT4++Acc,ScoreT+Acc1}
     end, {[],0}, BoardListT),
-    {add_new_num(NewBoardList1,Score,OldScore,Name),Score}.
+    HasChange = is_change(NewBoardList1,Board),
+    {add_new_num(NewBoardList1,Score,OldScore,Name,HasChange),Score}.
 
 %% x ->[#pos{xy={X,1},#pos{xy={X,2},#pos{xy={X,3},#pos{xy={X,4}]
 %% y ->[#pos{xy={1,Y},#pos{xy={2,Y},#pos{xy={3,Y},#pos{xy={4,Y}]
@@ -487,20 +487,21 @@ merge_list([T4=#pos{val=TV4},T3=#pos{val=TV3},T2=#pos{val=TV2},T1=#pos{val=TV1}]
     end,
     {[T44,T33,T22,T11],Score}.
 
-add_new_num(BoardList,Score,OldScore,Name) ->
+add_new_num(BoardList,Score,OldScore,Name,IsChange) ->
     case find_zero_pos(BoardList) of
         []  ->
             is_game_over(Score,BoardList,OldScore,Name),
             BoardList;
-        ZeroList ->
+        ZeroList when IsChange ->
             Index  = random:uniform(length(ZeroList)),
             ZeroPosT = lists:nth(Index,ZeroList),
             ZeroPos = case random:uniform(2) of
                           1 -> ZeroPosT#pos{val= 2};
                           2 -> ZeroPosT#pos{val= 4}
                       end,
-            NewBoardList = lists:keyreplace(ZeroPos#pos.xy,#pos.xy,BoardList,ZeroPos),
-            NewBoardList
+            lists:keyreplace(ZeroPos#pos.xy,#pos.xy,BoardList,ZeroPos);
+        _ ->
+           BoardList
     end.
 
 find_zero_pos(BoardList) ->
@@ -523,8 +524,7 @@ is_game_over(0,BoardList,Score,Name) ->
     case IsAlive of
         true -> ok;
         false ->
-            {OtherName,OtherScore} = game2048_gui:get_other_client_info(),
-            {OtherName,OtherScore} = game2048_gui:get_other_client_info(),
+            {ok,{OtherName,OtherScore}} = game2048_gui:get_other_client_info(),
             Msg = io_lib:format("You Got:~w, Challenge:~p Got: ~w,Game over!!!Try again.....",[Score,OtherName,OtherScore]),
             game2048_gui:msg_box(Msg),
             ChatMsg = io_lib:format("Wow, Challenge:~p Got: ~w score!!!!",[Name,Score]),
@@ -534,3 +534,6 @@ is_game_over(0,BoardList,Score,Name) ->
     end;
 is_game_over(_,_,_,_)->
     ok.
+
+is_change(NewList,OldList) ->
+    not lists:all(fun(Mem) -> lists:member(Mem,NewList) end,OldList).

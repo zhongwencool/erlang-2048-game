@@ -51,18 +51,13 @@ init([ParentObj, ParentPid]) ->
     random:seed(erlang:now()),
 
     Win = wxPanel:new(ParentObj, [{style,?wxFULL_REPAINT_ON_RESIZE}]),%%
-    wxWindow:setSizeHints(Win, {250*2,250*2}),
+    wxWindow:setSizeHints(Win, {250*2-100,250*2-100}),
     wxWindow:connect(Win, paint,  [callback]),%% callback paint event init 4*4line
     wxWindow:connect(Win, size,  []),
     wxWindow:connect(Win, command_button_clicked),
 
     %% Init pens and fonts
-    Pen = wxPen:new({0,0,0}, [{width, 3}]),
-    Fs0  = [{1 ,wxFont:new(80 , ?wxSWISS, ?wxNORMAL, ?wxNORMAL,[])},
-        {2 ,wxFont:new(65 , ?wxSWISS, ?wxNORMAL, ?wxNORMAL,[])},
-        {3 ,wxFont:new(45 , ?wxSWISS, ?wxNORMAL, ?wxNORMAL,[])},
-        {4 ,wxFont:new(35 , ?wxSWISS, ?wxNORMAL, ?wxNORMAL,[])}],
-
+    {Pen,Fs0} = game2048_lib:init_pen_fs(),
     TestDC  = wxMemoryDC:new(),
     Bitmap = wxBitmap:new(256,256),
     wxMemoryDC:selectObject(TestDC, Bitmap),
@@ -184,7 +179,7 @@ draw_number(DC,Fonts,#pos{xy={PosX, PosY}, val = Num}) ->
     wxFont:setWeight(F,?wxNORMAL),
     wxDC:setTextForeground(DC,Color),
     wxDC:setFont(DC,F),
-    wxDC:drawText(DC, NumList, {(PosX-1)*120+XInit,YInit+(PosY-1)*120}),
+    wxDC:drawText(DC, NumList, {(PosX-1)*95+XInit,YInit+(PosY-1)*95}),
     ok.
 
 draw_board_for_play(DC,{W0,H0},#state{pen=Pen}) ->
@@ -225,7 +220,7 @@ draw_board_for_sigup(DC,{W0,H0},#state{pen=Pen,win = Win}) ->
     wxDC:drawLine(DC, {?BRD, ?BRD+BoxSz*8}, {BS, ?BRD+BoxSz*8}),
     %% new compare button
     lists:foldl(fun(X,Acc) ->
-        wxButton:new(Win, ?COMPARE1+X, [{label,"←_←"},{size, {-1, 60}},{pos,{400+70,Acc}}]),
+        wxButton:new(Win, ?COMPARE1+X, [{label,"←_←"},{size, {-1, 60}},{pos,{400+70-100,Acc}}]),
         Acc+60
     end, 8, [0,1,2,3,4,5,6,7]).
 

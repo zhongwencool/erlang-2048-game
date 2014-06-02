@@ -25,7 +25,7 @@
 
 %%%%%%%%%%  Graphic engine %%%%%%%%%%%%%%
 
--record(gs,{board,compare_board,game,frame,other_client= {"Nobody",0}}).
+-record(gs,{board,compare_board,game,frame,other_client= {"nobody",0}}).
 
 new(Game) ->
     wx:new(),

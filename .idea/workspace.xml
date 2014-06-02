@@ -3,7 +3,7 @@
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/src/game2048_client.erl" line="23" mnemonic="5" />
     <bookmark url="file://$PROJECT_DIR$/ReadMe" line="8" />
-    <bookmark url="file://$PROJECT_DIR$/src/game2048_client.erl" line="104" mnemonic="9" />
+    <bookmark url="file://$PROJECT_DIR$/src/game2048_single_board.erl" line="274" mnemonic="9" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5b5e41c-ee13-48b1-9cef-7c582f1c175e" name="Default" comment="" />
@@ -30,46 +30,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="game2048_client.erl" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="game2048_client.erl" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/game2048_client.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="185" column="0" selection-start="6596" selection-end="6596" vertical-scroll-proportion="0.0" vertical-offset="3767" max-vertical-offset="4410">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="game2048.hrl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/game2048.hrl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="0" selection-start="869" selection-end="869" vertical-scroll-proportion="0.0" vertical-offset="483" max-vertical-offset="1155">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="center_server.bat" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bat/center_server.bat">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="80" selection-start="64" selection-end="73" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="168">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="game2048_center.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game2048_center.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="32" selection-start="1137" selection-end="1137" vertical-scroll-proportion="0.0" vertical-offset="3402" max-vertical-offset="4032">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ReadMe" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ReadMe">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="0" selection-start="245" selection-end="245" vertical-scroll-proportion="0.19595645" vertical-offset="0" max-vertical-offset="643">
+            <state line="81" column="0" selection-start="2474" selection-end="2474" vertical-scroll-proportion="-0.13091482" vertical-offset="1784" max-vertical-offset="4410">
               <folding />
             </state>
           </provider>
@@ -78,7 +42,7 @@
       <file leaf-file-name="game2048_chat_board.erl" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game2048_chat_board.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="104" column="28" selection-start="3419" selection-end="3423" vertical-scroll-proportion="0.0" vertical-offset="1911" max-vertical-offset="2541">
+            <state line="108" column="43" selection-start="3550" selection-end="3573" vertical-scroll-proportion="0.0" vertical-offset="1920" max-vertical-offset="2541">
               <folding />
             </state>
           </provider>
@@ -87,7 +51,7 @@
       <file leaf-file-name="game2048_compare_board.erl" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game2048_compare_board.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="161" column="27" selection-start="5648" selection-end="5648" vertical-scroll-proportion="0.0" vertical-offset="4680" max-vertical-offset="5964">
+            <state line="182" column="7" selection-start="6258" selection-end="6258" vertical-scroll-proportion="0.0" vertical-offset="3422" max-vertical-offset="5859">
               <folding />
             </state>
           </provider>
@@ -96,7 +60,25 @@
       <file leaf-file-name="game2048_single_board.erl" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game2048_single_board.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="167" column="44" selection-start="5543" selection-end="5543" vertical-scroll-proportion="0.0" vertical-offset="2726" max-vertical-offset="11361">
+            <state line="538" column="4" selection-start="20210" selection-end="20210" vertical-scroll-proportion="0.0" vertical-offset="7913" max-vertical-offset="11445">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="game2048_gui.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game2048_gui.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="27" column="0" selection-start="768" selection-end="768" vertical-scroll-proportion="0.0" vertical-offset="333" max-vertical-offset="6027">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="game2048_lib.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game2048_lib.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="45" column="0" selection-start="1325" selection-end="1325" vertical-scroll-proportion="0.0" vertical-offset="542" max-vertical-offset="1176">
               <folding />
             </state>
           </provider>
@@ -120,33 +102,38 @@
         <option value="$PROJECT_DIR$/src/game2048_board.erl" />
         <option value="$PROJECT_DIR$/src/game2048_double_board.erl" />
         <option value="$PROJECT_DIR$/src/common_tool.erl" />
-        <option value="$PROJECT_DIR$/src/game2048.erl" />
         <option value="$PROJECT_DIR$/bat/start_game2048.bat" />
         <option value="$PROJECT_DIR$/bat/start_game2048_center.bat" />
         <option value="C:/erl_dev/erl5.10.2/lib/wx-1.0/src/gen/wxTextCtrl.erl" />
-        <option value="$PROJECT_DIR$/src/game2048_lib.erl" />
         <option value="C:/erl_dev/erl5.10.2/lib/wx-1.0/src/gen/wxButton.erl" />
         <option value="$PROJECT_DIR$/bat/palyer2.bat" />
         <option value="$PROJECT_DIR$/bat/player1.bat" />
         <option value="$PROJECT_DIR$/bat/player3.bat" />
         <option value="$PROJECT_DIR$/bat/player4.bat" />
         <option value="$PROJECT_DIR$/src/game2048_center.erl" />
-        <option value="$PROJECT_DIR$/src/game2048_compare_board.erl" />
-        <option value="$PROJECT_DIR$/src/game2048_gui.erl" />
-        <option value="$PROJECT_DIR$/src/game2048_single_board.erl" />
         <option value="$PROJECT_DIR$/bat/center_server.bat" />
         <option value="$PROJECT_DIR$/src/game2048_chat_board.erl" />
         <option value="$PROJECT_DIR$/include/game2048.hrl" />
         <option value="$PROJECT_DIR$/ReadMe" />
         <option value="$PROJECT_DIR$/src/game2048_client.erl" />
+        <option value="$PROJECT_DIR$/src/game2048.app" />
+        <option value="$PROJECT_DIR$/src/game2048_app.erl" />
+        <option value="$PROJECT_DIR$/src/game2048_sup.erl" />
+        <option value="$PROJECT_DIR$/src/game2048.erl" />
+        <option value="$PROJECT_DIR$/ebin/game2048_app.erl" />
+        <option value="$PROJECT_DIR$/ebin/game2048.app" />
+        <option value="$PROJECT_DIR$/src/game2048_lib.erl" />
+        <option value="$PROJECT_DIR$/src/game2048_compare_board.erl" />
+        <option value="$PROJECT_DIR$/src/game2048_gui.erl" />
+        <option value="$PROJECT_DIR$/src/game2048_single_board.erl" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -230,7 +217,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="bat" />
+              <option name="myItemId" value="ebin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -343,15 +330,16 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290938" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32457027" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17862372" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17760417" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32791728" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
@@ -359,11 +347,10 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32457027" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -383,20 +370,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/game2048.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="11" selection-start="769" selection-end="769" vertical-scroll-proportion="0.0" vertical-offset="242" max-vertical-offset="1197">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/game2048.hrl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="342" selection-end="342" vertical-scroll-proportion="0.0" vertical-offset="208" max-vertical-offset="714">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game2048_gui.erl">
       <provider selected="true" editor-type-id="text-editor">
         <state line="218" column="0" selection-start="6660" selection-end="6660" vertical-scroll-proportion="0.0" vertical-offset="4061" max-vertical-offset="4704">
@@ -406,30 +379,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game2048.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="8" selection-start="1217" selection-end="1217" vertical-scroll-proportion="0.0" vertical-offset="554" max-vertical-offset="1197">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/game2048.hrl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="342" selection-end="342" vertical-scroll-proportion="0.0" vertical-offset="208" max-vertical-offset="714">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game2048_gui.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="218" column="0" selection-start="6660" selection-end="6660" vertical-scroll-proportion="0.0" vertical-offset="4061" max-vertical-offset="4704">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game2048.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="16" selection-start="1134" selection-end="1134" vertical-scroll-proportion="0.0" vertical-offset="763" max-vertical-offset="1197">
-          <folding />
-        </state>
+        <state line="48" column="16" selection-start="1134" selection-end="1134" vertical-scroll-proportion="0.0" vertical-offset="763" max-vertical-offset="1197" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/include/game2048.hrl">
@@ -448,9 +398,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game2048.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="4" selection-start="862" selection-end="862" vertical-scroll-proportion="0.0" vertical-offset="819" max-vertical-offset="1260">
-          <folding />
-        </state>
+        <state line="39" column="4" selection-start="862" selection-end="862" vertical-scroll-proportion="0.0" vertical-offset="819" max-vertical-offset="1260" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/include/game2048.hrl">
@@ -469,9 +417,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game2048.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="4" selection-start="862" selection-end="862" vertical-scroll-proportion="0.0" vertical-offset="819" max-vertical-offset="1260">
-          <folding />
-        </state>
+        <state line="39" column="4" selection-start="862" selection-end="862" vertical-scroll-proportion="0.0" vertical-offset="819" max-vertical-offset="1260" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/include/game2048.hrl">
@@ -490,9 +436,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game2048.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="4" selection-start="862" selection-end="862" vertical-scroll-proportion="0.0" vertical-offset="305" max-vertical-offset="1260">
-          <folding />
-        </state>
+        <state line="39" column="4" selection-start="862" selection-end="862" vertical-scroll-proportion="0.0" vertical-offset="305" max-vertical-offset="1260" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/include/game2048.hrl">
@@ -579,21 +523,12 @@
     </entry>
     <entry file="file://C:/erl_dev/erl5.10.2/lib/wx-1.0/include/wx.hrl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="8" selection-start="958" selection-end="958" vertical-scroll-proportion="0.0" vertical-offset="190" max-vertical-offset="80052">
-          <folding />
-        </state>
+        <state line="24" column="8" selection-start="958" selection-end="958" vertical-scroll-proportion="0.0" vertical-offset="190" max-vertical-offset="80052" />
       </provider>
     </entry>
     <entry file="file://C:/erl_dev/erl5.10.2/lib/wx-1.0/src/gen/wxButton.erl">
       <provider selected="true" editor-type-id="text-editor">
         <state line="242" column="0" selection-start="11633" selection-end="11633" vertical-scroll-proportion="-5.7352943" vertical-offset="4887" max-vertical-offset="11382" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game2048_lib.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="25" selection-start="517" selection-end="517" vertical-scroll-proportion="0.0" vertical-offset="74" max-vertical-offset="1029">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://C:/erl_dev/erl5.10.2/lib/wx-1.0/src/gen/wxWindow.erl">
@@ -621,65 +556,19 @@
         <state line="1" column="17" selection-start="27" selection-end="27" vertical-scroll-proportion="0.033123028" vertical-offset="0" max-vertical-offset="634" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game2048.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="17" selection-start="540" selection-end="540" vertical-scroll-proportion="0.33280757" vertical-offset="272" max-vertical-offset="1134">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game2048_gui.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="842" selection-end="842" vertical-scroll-proportion="0.33123028" vertical-offset="399" max-vertical-offset="6027">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game2048_compare_board.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="161" column="27" selection-start="5648" selection-end="5648" vertical-scroll-proportion="0.0" vertical-offset="3168" max-vertical-offset="5964">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game2048_single_board.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="167" column="44" selection-start="5543" selection-end="5543" vertical-scroll-proportion="0.0" vertical-offset="2726" max-vertical-offset="11361">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game2048_chat_board.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="104" column="28" selection-start="3419" selection-end="3423" vertical-scroll-proportion="0.0" vertical-offset="1911" max-vertical-offset="2541">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bat/palyer2.bat">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="10" selection-end="10" vertical-scroll-proportion="0.032659408" vertical-offset="0" max-vertical-offset="643">
-          <folding />
-        </state>
+        <state line="1" column="0" selection-start="10" selection-end="10" vertical-scroll-proportion="0.032659408" vertical-offset="0" max-vertical-offset="643" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game2048_client.erl">
+    <entry file="file://$PROJECT_DIR$/bat/center_server.bat">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="185" column="0" selection-start="6596" selection-end="6596" vertical-scroll-proportion="0.0" vertical-offset="3767" max-vertical-offset="4410">
-          <folding />
-        </state>
+        <state line="1" column="80" selection-start="64" selection-end="73" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="168" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/include/game2048.hrl">
       <provider selected="true" editor-type-id="text-editor">
         <state line="38" column="0" selection-start="869" selection-end="869" vertical-scroll-proportion="0.0" vertical-offset="483" max-vertical-offset="1155">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bat/center_server.bat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="80" selection-start="64" selection-end="73" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="168">
           <folding />
         </state>
       </provider>
@@ -693,7 +582,89 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ReadMe">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="245" selection-end="245" vertical-scroll-proportion="0.19595645" vertical-offset="0" max-vertical-offset="643">
+        <state line="6" column="0" selection-start="245" selection-end="245" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="483">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/erl_dev/erl5.10.2/lib/erts-5.10.2/src/erlang.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2206" column="0" selection-start="69888" selection-end="69888" vertical-scroll-proportion="0.33333334" vertical-offset="46116" max-vertical-offset="75096" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game2048_app.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="26" selection-start="1293" selection-end="1293" vertical-scroll-proportion="0.0" vertical-offset="701" max-vertical-offset="1428">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ebin/game2048.app">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="3" selection-start="493" selection-end="493" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="504">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game2048.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="16" selection-start="443" selection-end="455" vertical-scroll-proportion="0.0" vertical-offset="189" max-vertical-offset="1155">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game2048_sup.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="0" selection-start="141" selection-end="141" vertical-scroll-proportion="0.0" vertical-offset="42" max-vertical-offset="1701">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitattributes">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="955">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game2048_lib.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="0" selection-start="1325" selection-end="1325" vertical-scroll-proportion="0.0" vertical-offset="542" max-vertical-offset="1176">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game2048_gui.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="0" selection-start="768" selection-end="768" vertical-scroll-proportion="0.0" vertical-offset="333" max-vertical-offset="6027">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game2048_single_board.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="538" column="4" selection-start="20210" selection-end="20210" vertical-scroll-proportion="0.0" vertical-offset="7913" max-vertical-offset="11445">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game2048_compare_board.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="182" column="7" selection-start="6258" selection-end="6258" vertical-scroll-proportion="0.0" vertical-offset="3422" max-vertical-offset="5859">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game2048_chat_board.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="108" column="43" selection-start="3550" selection-end="3573" vertical-scroll-proportion="0.0" vertical-offset="1920" max-vertical-offset="2541">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game2048_client.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="0" selection-start="2474" selection-end="2474" vertical-scroll-proportion="-0.13091482" vertical-offset="1784" max-vertical-offset="4410">
           <folding />
         </state>
       </provider>
