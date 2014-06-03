@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Erlang-2048-game : 2048 game  base on pure erlang" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Erlang-2048-game</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/zhongwencool/erlang-2048-game">View on GitHub</a>
+
+          <h1 id="project_title">Erlang-2048-game</h1>
+          <h2 id="project_tagline">2048 game  base on pure erlang</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/zhongwencool/erlang-2048-game/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/zhongwencool/erlang-2048-game/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p><strong>0 . prework</strong></p>
+
+<pre><code>intall erlang and set erlang PATH.
+</code></pre>
+
+<p><strong>1. config</strong></p>
+
+<ul>
+<li>change your center name in game2048.hrl, format as : game2048_center@IP</li>
+<li>    change ./bat/center_server.bat node name       : game2048_center@IP</li>
+<li>    for example: game2048_center@127.0.0.1</li>
+</ul><p><strong>2. compile</strong></p>
+
+<pre><code> double click ./bat/compile.bat
+</code></pre>
+
+<p><strong>3.  set center_server up</strong></p>
+
+<pre><code> double click ./bat/center_server.bat
+</code></pre>
+
+<p><strong>4. run game2048 client</strong></p>
+
+<pre><code> double click ./bat/player1.bat
+</code></pre>
+
+<p><strong>5. Tip</strong></p>
+
+<ul>
+<li>
+<p>5.1 press down </p>
+
+<pre><code>|  Left:A | Right:D | Up:W  | Down:S  |
+</code></pre>
+</li>
+<li><p>5.2 Save game : File -&gt; Save game</p></li>
+<li><p>5.3 play game with other : online -&gt; signup (set a new name) -&gt; click "&lt;-" button right to begin</p></li>
+<li><p>5.4 chat with other : write msg in blew dialogue, print Enter to send msg.</p></li>
+</ul><hr><p>If you just want to play alone, you can :</p>
+
+<pre><code>erl -name test
+&gt;application:start(game2048).
+&gt;appliccation:stop(game2048).
+</code></pre>
+
+<hr><p>Find work flow in  <strong><a href="https://github.com/zhongwencool/2048/wiki">Wiki</a></strong></p>
+
+<p>Html Doc generate by Erlang Edoc :<strong><a href="https://github.com/zhongwencool/2048/tree/master/doc">Document</a></strong></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Erlang-2048-game maintained by <a href="https://github.com/zhongwencool">zhongwencool</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("erlang,2048,game");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
