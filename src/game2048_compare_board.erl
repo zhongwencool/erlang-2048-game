@@ -2,15 +2,14 @@
 %%% @author zhongwencool@gmail.com
 %%% @copyright (C) 2014, <COMPANY>
 %%% @doc
-%%%   another player board
+%%%   another player(Challenge) board
 %%% @end
 %%% Created : 18. May 2014 3:14 PM
 %%%-------------------------------------------------------------------
 -module(game2048_compare_board).
--author("zhongwencool@gmail.com").
 
 %% API
--export([new/1, setup_board/2,get_board_score_data/1,set_board_score_data/2,update_signup_info/2,start_challenge_game/3,
+-export([new/1,get_board_score_data/1,set_board_score_data/2,update_signup_info/2,start_challenge_game/3,
     board_list_from_other/3
 ]).
 
@@ -23,30 +22,36 @@
 
 -behaviour(wx_object).
 
-%% API
+%% @doc new a compare board for sign up or playing board
 new(ParentObj) ->
     wx_object:start_link(?MODULE, [ParentObj, self()], []).
 
-setup_board(Board, Init) ->
-    wx_object:call(Board, {setup_board, Init}).
-
+-spec get_board_score_data(pid()) ->
+    {ok,[integer()|list()]}.
+%% @doc get compare board's score and board
 get_board_score_data(Board) ->
     wx_object:call(Board, get_board_score_data).
 
+-spec set_board_score_data(pid(),[integer()|list()]) ->
+    ok.
+%% @doc set compare board's score and board
 set_board_score_data(Board,Data) ->
     wx_object:call(Board, {set_board_score_data,Data}).
 
+%% @doc update newest signuplist from client server which receive from center server
 update_signup_info(Board,SignupList) ->
     wx_object:call(Board, {update_signup_info,SignupList}).
 
+%% @doc client server call compare board to begin online game,(change signup board to compare board)
 start_challenge_game(Board,Self,Other) ->
     wx_object:call(Board, {start_challenge_game,Self,Other}).
 
+%% @doc update boardList and score from other player
 board_list_from_other(Board,BoardList,Info) ->
     wx_object:call(Board, {board_list_from_other,BoardList,Info}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%% @private
 init([ParentObj, ParentPid]) ->
     random:seed(erlang:now()),
 
@@ -78,7 +83,8 @@ init([ParentObj, ParentPid]) ->
     wxStaticBoxSizer:new(?wxVERTICAL, Win,[{label, "Online-->Signup-->challenge"}]),
     {Win, #state{win=Win, board=game2048_lib:init_board(), pen=Pen, fonts=Fs,parent=ParentPid}}.
 
-%% init will be call by pain callback :pain 4*4 lines or 1*8 lines
+%% @private
+%% @doc init will be call by pain callback :pain 4*4 lines or 1*8 lines
 handle_sync_event(#wx{event=#wxPaint{}}, _Obj, State = #state{win=Win,board = Board}) ->
     Size = wxWindow:getSize(Win),
     DC = wxPaintDC:new(Win),
@@ -87,14 +93,14 @@ handle_sync_event(#wx{event=#wxPaint{}}, _Obj, State = #state{win=Win,board = Bo
         wxDC:clear(DC),
         case Board =:= game2048_lib:init_board() of
             true ->
-                draw_board_for_sigup(DC,Size,State);
+                draw_board_for_signup(DC,Size,State);
             false ->
                 draw_board_for_play(DC,Size,State)
         end
     end),
     wxPaintDC:destroy(DC),
     ok.
-
+%% @private
 handle_event(#wx{event=#wxMouse{type=enter_window}}, State = #state{win=Win}) ->
     wxWindow:setFocus(Win), %% Get keyboard focus
     {noreply,State};
@@ -109,13 +115,7 @@ handle_event(_Ev, State) ->
     {noreply,State}.
 
 %%%%%%%%%%%%%%%%%%%
-handle_call({setup_board, Init},_From, State=#state{board=Board}) ->
-    NewBoard = lists:foldl(fun(New=#pos{xy=XY},Acc) ->
-        lists:keyreplace(XY, #pos.xy, Acc, New)
-    end,Board,Init),
-    S = State#state{board=NewBoard},
-    redraw(S),
-    {reply, ok, S};
+%% @private
 handle_call(get_board_score_data,_From, State=#state{board=Board,score=Score}) ->
     {reply, {ok,[Score|Board]}, State};
 handle_call({set_board_score_data,[Score|BoardData]},_From, State) ->
@@ -138,21 +138,22 @@ handle_call(Msg,_From,S) ->
     {reply, ok, S}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% @private
 handle_cast(Msg, State) ->
     io:format("~p:Got cast ~p~n",[?MODULE,Msg]),
     {noreply,State}.
-
+%% @private
 code_change(_, _, State) ->
     {stop, not_yet_implemented, State}.
-
+%% @private
 handle_info(Msg, State) ->
     {stop, {info, Msg}, State}.
-
+%% @private
 terminate(_Reason, _State) ->
     normal.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%% @private
 redraw(S = #state{win=Win}) ->
     DC0  = wxClientDC:new(Win),
     DC   = wxBufferedDC:new(DC0),
@@ -162,6 +163,7 @@ redraw(S = #state{win=Win}) ->
     wxClientDC:destroy(DC0),
     ok.
 
+%% @private
 redraw(DC, Size, S) ->
     wx:batch(fun() ->
         wxDC:setBackground(DC, ?wxWHITE_BRUSH),
@@ -171,6 +173,7 @@ redraw(DC, Size, S) ->
         [draw_number(DC,Fonts,Sq) || Sq = #pos{val= Val} <- S#state.board,Val =/=0]
     end).
 
+%% @private
 draw_number(DC,Fonts,#pos{xy={PosX, PosY}, val = Num}) ->
     NumList = integer_to_list(Num),
     Length = erlang:length(NumList),
@@ -182,6 +185,8 @@ draw_number(DC,Fonts,#pos{xy={PosX, PosY}, val = Num}) ->
     wxDC:drawText(DC, NumList, {(PosX-1)*95+XInit,YInit+(PosY-1)*95}),
     ok.
 
+%% @private
+%% @doc draw compare board 4*4 line
 draw_board_for_play(DC,{W0,H0},#state{pen=Pen}) ->
     BoxSz = game2048_lib:getGeomSz(W0,H0),
     BS = ?BRD+4*BoxSz,
@@ -201,7 +206,9 @@ draw_board_for_play(DC,{W0,H0},#state{pen=Pen}) ->
     wxDC:drawLine(DC, {?BRD, ?BRD+BoxSz*4}, {BS, ?BRD+BoxSz*4}),
     BoxSz.
 
-draw_board_for_sigup(DC,{W0,H0},#state{pen=Pen,win = Win}) ->
+%% @private
+%% @doc draw signup board 1*8 line and 8 compare buttons
+draw_board_for_signup(DC,{W0,H0},#state{pen=Pen,win = Win}) ->
     BoxSz = (game2048_lib:getGeomSz(W0,H0)) div 2,
     BS = ?BRD+4*BoxSz+200,
     wxPen:setWidth(Pen, 3),
@@ -224,14 +231,14 @@ draw_board_for_sigup(DC,{W0,H0},#state{pen=Pen,win = Win}) ->
         Acc+60
     end, 8, [0,1,2,3,4,5,6,7]).
 
-
+%% @private
 do_start_challenge_game(_Self,_Other,State = #state{win = Win}) ->
     redraw(State),
     [begin Button = wxWindow:findWindow(Win,ID),
     wxButton:disable(Button)
      end||ID<- lists:seq(?COMPARE1,?COMPARE8)],
     ok.
-
+%% @private
 do_update_signup_info(SignupList,#state{win = Win,fonts = Fonts} = State) ->
     DC0  = wxClientDC:new(Win),
     DC   = wxBufferedDC:new(DC0),
@@ -239,19 +246,21 @@ do_update_signup_info(SignupList,#state{win = Win,fonts = Fonts} = State) ->
     wx:batch(fun() ->
         wxDC:setBackground(DC, ?wxWHITE_BRUSH),
         wxDC:clear(DC),
-        draw_board_for_sigup(DC,Size,State),
+        draw_board_for_signup(DC,Size,State),
         draw_signup_info(SignupList,DC,Fonts,1)
     end),
     wxBufferedDC:destroy(DC),
     wxClientDC:destroy(DC0),
     ok.
 
+%% @private
 draw_signup_info([],_,_,_) ->
     ok;
 draw_signup_info([Signup|Left],DC,Fonts,Num) ->
     draw_name_for_sigup(DC,Fonts,Signup#player.name,get_name_pos(Num)),
     draw_signup_info(Left,DC,Fonts,Num+1).
 
+%% @private
 draw_name_for_sigup(DC,Fonts,Name,XY)when is_list(Name) ->
     F = game2048_lib:select_font(4,Fonts),
     {_,_,Color} = game2048_lib:select_dis_color(random:uniform(4)),
@@ -260,11 +269,13 @@ draw_name_for_sigup(DC,Fonts,Name,XY)when is_list(Name) ->
     wxDC:setFont(DC,F),
     wxDC:drawText(DC, Name, XY),
     ok.
-
-%%[{X,Y},{X,Y+60*1},{X,Y+60*2},{X,Y+60*3},{X,Y+60*4},{X,Y+60*5},{X,Y+60*6},{X,Y+60*7}].
+%% @private
+%% @doc [{X,Y},{X,Y+60*1},{X,Y+60*2},{X,Y+60*3},{X,Y+60*4},{X,Y+60*5},{X,Y+60*6},{X,Y+60*7}].
 get_name_pos(Num) ->
     {10,10+60*(Num-1)}.
 
+%% @private
+%% find which challenge be choose
 make_challenge_info(ButtonID,#state{list = List}) ->
     Pos = ButtonID-?COMPARE1+1,
     case Pos > erlang:length(List)  of

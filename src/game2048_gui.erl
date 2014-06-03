@@ -2,15 +2,14 @@
 %%% @author zhongwencool@gmail.com
 %%% @copyright (C) 2014, <COMPANY>
 %%% @doc
-%%%
+%%%    game2048 gui manager
 %%% @end
 %%% Created : 18. May 2014 2:50 PM
 %%%-------------------------------------------------------------------
 -module(game2048_gui).
--author("zhongwencool@gmail.com").
 
 %% API
--export([new/1,print_staus/1,start_new_game/0,msg_box/1,update_signup_info/1,
+-export([new/1,start_new_game/0,msg_box/1,update_signup_info/1,
     start_challenge_game/2,board_list_from_other/2,update_score_from_other/2,
     update_score_from_self/1,get_other_client_info/0
 ]).
@@ -25,39 +24,70 @@
 
 %%%%%%%%%%  Graphic engine %%%%%%%%%%%%%%
 
--record(gs,{board,compare_board,game,frame,other_client= {"nobody",0}}).
+-record(gs,{board::pid(),%% self board pid
+    compare_board::pid(),%% compare board pid
+    game::pid(),%% parent pid
+    frame,other_client= {"nobody",0}::tuple() %%{name,score}
+}).
 
+%% @doc new gui manger
 new(Game) ->
     wx:new(),
     wx_object:start_link(?MODULE, [Game], []).
 
+%% @doc print Info to  staus bar
+-spec print_staus(Msg::list()) ->
+    ok.
 print_staus(Info) when is_list(Info)->
     erlang:send(?MODULE,{binary_to_list(list_to_binary(Info))}).
+
+%% @doc start a init game
+-spec start_new_game() -> ok.
 start_new_game() ->
     erlang:send(?MODULE,{init}).
 
+%% @doc popup message on screen
+-spec msg_box(Msg::list()) ->
+    ok.
 msg_box(Msg) ->
     erlang:send(?MODULE,{msg_box,Msg}).
 
+%% @doc client update signup list to gui,so that gui can transport to compare board
+-spec update_signup_info(SignupList::list()) ->
+    ok.
 update_signup_info(SignupList) ->
     erlang:send(?MODULE,{udpate_signup_info,SignupList}).
 
+%% @doc client server start challenge game
+-spec start_challenge_game(Self::player(),Other::player()) ->
+    ok.
 start_challenge_game(Self,Other) ->
     erlang:send(?MODULE,{start_challenge_game,Self,Other}).
 
-board_list_from_other(BoardList,OtherInfo) ->
-    erlang:send(?MODULE,{board_list_from_other,BoardList,OtherInfo}).
+%% @doc client server send boardlist and score to gui
+-spec board_list_from_other(BoardList::list(),OtherInfo::integer()) ->
+    ok.
+board_list_from_other(BoardList,Score) ->
+    erlang:send(?MODULE,{board_list_from_other,BoardList,Score}).
 
+%% @doc compare board send other name and score to gui
+-spec update_score_from_other(OtherName::list(),OtherScore::integer()) ->
+    ok.
 update_score_from_other(OtherName,OtherScore) ->
     erlang:send(?MODULE,{update_score_from_other,OtherName,OtherScore}).
 
+%% @doc single board send score to gui
+-spec update_score_from_self(SelfScore::integer()) ->
+    ok.
 update_score_from_self(SelfScore) ->
     erlang:send(?MODULE,{update_score_from_self,SelfScore}).
 
+%% @doc single board call  gui to get challenge player name and score
 get_other_client_info() ->
     gen_server:call(?MODULE,get_other_client_info).
-%%%%%%%%%%%%%%%%%%%%% Server callbacks %%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%% Server callbacks %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% @private
 init([Game]) ->
     erlang:register(?MODULE,self()),
     {Frame, {Board,BoardCompare}} = wx:batch(fun() -> create_window() end),
@@ -65,9 +95,9 @@ init([Game]) ->
     random:seed(erlang:now()),
     {Frame, #gs{board=Board,game=Game,frame=Frame,compare_board=BoardCompare}}.
 
+%% @private
 create_window() ->
     Frame = wxFrame:new(wx:null(), -1, "2048 Rule--A:left--D:right--W:Up--S:Down", []),
-
     wxFrame:createStatusBar(Frame,[]),
     wxFrame:connect(Frame, close_window),
 
@@ -121,12 +151,13 @@ create_window() ->
     wxWindow:show(Frame),
     {Frame, {Board,BoardCompare}}.
 
+%% @private
 status(Win, F, A) ->
     Str = lists:flatten(io_lib:format(F, A)),
     wxFrame:setStatusText(Win, Str).
 
 %%%%%%%%%%%%%%%% Info i.e. messages %%%%%%%%%%%%%%%%%%%%%
-
+%% @private
 handle_info({init}, S = #gs{board=Board,frame=F}) ->
     Pos1 = #pos{xy= {random:uniform(4),random:uniform(4)},val = 2},
     Pos2 = get_no_overlap_pos(Pos1),
@@ -173,7 +204,7 @@ handle_info(Info,S) ->
     {noreply, S}.
 
 %%%%%%%%%%%%%%%%% GUI-Events %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%% @private
 handle_event(#wx{event=#wxClose{}},
     S = #gs{game=G,frame=F}) ->
     catch wxWindow:'Destroy'(F),
@@ -196,24 +227,24 @@ handle_event(#wx{id=ID, event=#wxCommand{}}, S) when ID > 125 ->
 handle_event(Msg,S) ->
     io:format("~p: Unhandled event ~p~n",[?MODULE, Msg]),
     {noreply, S}.
-
+%% @private
 handle_call(get_other_client_info,_From,State) ->
     {reply,{ok,State#gs.other_client},State};
 handle_call(What, _From, State) ->
     {stop, {call, What}, State}.
-
+%% @private
 handle_cast(Msg, State) ->
     io:format("~p:Got cast ~p~n",[?MODULE,Msg]),
     {noreply,State}.
-
+%% @private
 code_change(_, _, State) ->
     {stop, not_yet_implemented, State}.
-
+%% @private
 terminate(_Reason, _State) ->
     normal.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%% @private
 dialog(?SAVE, S=#gs{frame=Frame, board=Board}) ->
     FD = wxFileDialog:new(Frame, [{style, ?wxFD_SAVE bor
         ?wxFD_OVERWRITE_PROMPT}]),
@@ -269,11 +300,12 @@ dialog(?SIGNUP,  S=#gs{frame=Frame,board = Board}) ->
     end,
     wxTextEntryDialog:destroy(Dialog),
     S;
-
 dialog(Other, S) ->
     io:format("other ~p~n",[Other]),
     S.
 
+%% @private
+%% @doc get two poses that not repeated.
 get_no_overlap_pos(Pos1) ->
     PosTemp = #pos{xy ={random:uniform(4), random:uniform(4)}, val = 2},
     case PosTemp#pos.xy =:= Pos1#pos.xy of

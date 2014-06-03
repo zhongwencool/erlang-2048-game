@@ -1,8 +1,16 @@
-%% 多进程编译,修改自otp/lib/tools/src/make.erl
-%% 解析Emakefile,根据获取{mods, options}列表,
-%% 按照次序编译每项(解决编译顺序的问题)
-%% 其中mods也可以包含多个模块,当大于1个时,
-%% 可以启动多个process进行编译,从而提高编译速度.
+%%%-------------------------------------------------------------------
+%%% @author zhongwencool@gmail.com
+%%% @copyright (C) 2014, <COMPANY>
+%%% @doc
+%%%  multiprocess compile refer to  otp/lib/tools/src/make.erl
+%%% analysis Emakefile,accroding to {mods, options} list,
+%%% accroding to order to compile
+%%% Mods = [Mod,Mod1,Mod2]
+%%% @end
+%%% Created : 18. May 2014 3:14 PM
+%%%-------------------------------------------------------------------
+
+
 -module(mmake).
 -export([all/1, all/2, files/2, files/3]).
 
@@ -170,7 +178,7 @@ load_opt(Opts) ->
 	    end
     end.
 
-%% 处理
+%%
 process([{[], _Opts}|Rest], Worker, NoExec, Load) ->
     process(Rest, Worker, NoExec, Load);
 process([{L, Opts}|Rest], Worker, NoExec, Load) ->
@@ -185,11 +193,11 @@ process([{L, Opts}|Rest], Worker, NoExec, Load) ->
 process([], _Worker, _NoExec, _Load) ->
     up_to_date.
 
-%% worker进行编译
+%% worker :compile
 do_worker(L, Opts, NoExec, Load, Worker) ->
     WorkerList = do_split_list(L, Worker),
     %io:format("worker:~p worker list(~p)~n", [Worker, length(WorkerList)]),
-    % 启动进程
+    % start a process
     Ref = make_ref(),
     PIDs =
     [begin
@@ -197,7 +205,7 @@ do_worker(L, Opts, NoExec, Load, Worker) ->
     end || E <- WorkerList],
     do_wait_worker(length(PIDs), Ref).
 
-%% 等待结果
+%%
 do_wait_worker(0, _Ref) ->
     ok;
 do_wait_worker(N, Ref) ->
@@ -213,10 +221,9 @@ do_wait_worker(N, Ref) ->
             do_wait_worker(N, Ref)
     end.
 
-%% 将L分割成最多包含N个子列表的列表
+%%
 do_split_list(L, N) ->
     Len = length(L), 
-    % 每个列表的元素数
     LLen = (Len + N - 1) div N,
     do_split_list(L, LLen, []).
 
@@ -226,7 +233,7 @@ do_split_list(L, N, Acc) ->
     {L2, L3} = lists:split(erlang:min(length(L), N), L),
     do_split_list(L3, N, [L2 | Acc]).
 
-%% 启动worker进程
+%%
 start_worker(L, Opts, NoExec, Load, Parent, Ref) ->
     Fun = 
     fun() ->
@@ -367,5 +374,4 @@ get_file_mtime(File) ->
             MTime
     end.
 
-	
 %%--------------------

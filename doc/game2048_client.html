@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Module game2048_client</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module game2048_client</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>client node connect to center node
+    Be responsible for communicate (send/receive msg) with center server.
+<p>Copyright © (C) 2014, &lt;COMPANY&gt;</p>
+
+<p><b>Behaviours:</b> <a href="gen_server.html"><tt>gen_server</tt></a>.</p>
+<p><b>Authors:</b> <a href="mailto:zhongwencool@gmail.com"><tt>zhongwencool@gmail.com</tt></a>.</p>
+
+<h2><a name="description">Description</a></h2>client node connect to center node
+    Be responsible for communicate (send/receive msg) with center server
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#bc_signup_info-2">bc_signup_info/2</a></td><td>center server update newest signup info to client.</td></tr>
+<tr><td valign="top"><a href="#center_respond_ok-2">center_respond_ok/2</a></td><td>center respond client that center server is ready for useing.</td></tr>
+<tr><td valign="top"><a href="#i-0">i/0</a></td><td>for debugger :look state.</td></tr>
+<tr><td valign="top"><a href="#msg_box-2">msg_box/2</a></td><td>popup a message box is client.</td></tr>
+<tr><td valign="top"><a href="#send_challenge-1">send_challenge/1</a></td><td>client compare board send challenge info to client server for  transponding to center server.</td></tr>
+<tr><td valign="top"><a href="#send_chat_msg_to_center-1">send_chat_msg_to_center/1</a></td><td>chat board send chat message to client ,so that can transfer to center server.</td></tr>
+<tr><td valign="top"><a href="#send_chat_msg_to_client-2">send_chat_msg_to_client/2</a></td><td>center server boardcast chat message to all client server for transponding to client chat board.</td></tr>
+<tr><td valign="top"><a href="#sign_up-2">sign_up/2</a></td><td>click signup button on gui for signup.</td></tr>
+<tr><td valign="top"><a href="#start-0">start/0</a></td><td>start client server.</td></tr>
+<tr><td valign="top"><a href="#start_challenge_game-2">start_challenge_game/2</a></td><td>notify two players that game is begining.</td></tr>
+<tr><td valign="top"><a href="#start_link-0">start_link/0</a></td><td>start client server.</td></tr>
+<tr><td valign="top"><a href="#stop-0">stop/0</a></td><td>stop client server.</td></tr>
+<tr><td valign="top"><a href="#update_board_to_other-2">update_board_to_other/2</a></td><td>update boardlist and score to challenge when playing online game.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="bc_signup_info-2">bc_signup_info/2</a></h3>
+<div class="spec">
+<p><tt>bc_signup_info(ClientPId::pid(), Info::list()) -&gt; ok</tt><br></p>
+</div><p>center server update newest signup info to client</p>
+
+<h3 class="function"><a name="center_respond_ok-2">center_respond_ok/2</a></h3>
+<div class="spec">
+<p><tt>center_respond_ok(PID::pid(), Msg::list()) -&gt; ok</tt><br></p>
+</div><p>center respond client that center server is ready for useing.</p>
+
+<h3 class="function"><a name="i-0">i/0</a></h3>
+<div class="spec">
+<p><tt>i() -&gt; #state{}</tt><br></p>
+</div><p>for debugger :look state</p>
+
+<h3 class="function"><a name="msg_box-2">msg_box/2</a></h3>
+<div class="spec">
+<p><tt>msg_box(Pid::pid(), Msg::list()) -&gt; ok</tt><br></p>
+</div><p>popup a message box is client</p>
+
+<h3 class="function"><a name="send_challenge-1">send_challenge/1</a></h3>
+<div class="spec">
+<p><tt>send_challenge(Info::list()) -&gt; ok</tt><br></p>
+</div><p>client compare board send challenge info to client server for  transponding to center server</p>
+
+<h3 class="function"><a name="send_chat_msg_to_center-1">send_chat_msg_to_center/1</a></h3>
+<div class="spec">
+<p><tt>send_chat_msg_to_center(Msg::list()) -&gt; ok</tt><br></p>
+</div><p>chat board send chat message to client ,so that can transfer to center server</p>
+
+<h3 class="function"><a name="send_chat_msg_to_client-2">send_chat_msg_to_client/2</a></h3>
+<div class="spec">
+<p><tt>send_chat_msg_to_client(ClientPid::pid(), Msg::list()) -&gt; ok</tt><br></p>
+</div><p>center server boardcast chat message to all client server for transponding to client chat board</p>
+
+<h3 class="function"><a name="sign_up-2">sign_up/2</a></h3>
+<div class="spec">
+<p><tt>sign_up(Board::pid(), Name::list()) -&gt; ok</tt><br></p>
+</div><p>click signup button on gui for signup</p>
+
+<h3 class="function"><a name="start-0">start/0</a></h3>
+<div class="spec">
+<p><tt>start() -&gt; <a href="gen_server.html#type-start">gen_server:start</a>(3)</tt><br></p>
+</div><p>start client server</p>
+
+<h3 class="function"><a name="start_challenge_game-2">start_challenge_game/2</a></h3>
+<div class="spec">
+<p><tt>start_challenge_game(Player::#player{}, Player::#player{}) -&gt; ok</tt><br></p>
+</div><p>notify two players that game is begining</p>
+
+<h3 class="function"><a name="start_link-0">start_link/0</a></h3>
+<div class="spec">
+<p><tt>start_link() -&gt; <a href="gen_server.html#type-start_link">gen_server:start_link</a>(3)</tt><br></p>
+</div><p>start client server</p>
+
+<h3 class="function"><a name="stop-0">stop/0</a></h3>
+<div class="spec">
+<p><tt>stop() -&gt; ok</tt><br></p>
+</div><p>stop client server</p>
+
+<h3 class="function"><a name="update_board_to_other-2">update_board_to_other/2</a></h3>
+<div class="spec">
+<p><tt>update_board_to_other(BoardList::list(), Score::integer()) -&gt; ok</tt><br></p>
+</div><p>update boardlist and score to challenge when playing online game</p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc, Jun 3 2014, 18:27:37.</i></p>
+</body>
+</html>

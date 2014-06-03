@@ -6,14 +6,17 @@
 %%% @end
 %%% Created : 18. May 2014 2:45 PM
 %%%-------------------------------------------------------------------
--author("zhongwencool@gmail.com").
 
+-ifndef(GAME2048_HRL_).
+-define(GMAE2048_HRL_, 1).
 
 -include_lib("wx/include/wx.hrl").
 
--define(CENTER_NODE,'game2048_center@127.0.0.1').
 
--define(TC(Cmd), tc(fun() -> Cmd end, ?MODULE, ?LINE)).
+%% ===================================================================
+%% Marcos
+%% ===================================================================
+-define(CENTER_NODE,'game2048_center@127.0.0.1').
 
 -define(NEW,   121).
 -define(ONLINE,122).
@@ -21,21 +24,20 @@
 
 -define(OPEN,  130).
 -define(SAVE,  131).
-%% compare 1~8
+%% compare button 1~8
 -define(COMPARE1,132).
 -define(COMPARE8,139).
 
 -define(CHAT_BUTTON,141).
 
--define(QUIT,  ?wxID_EXIT).   %% Use OS specific version if available
--define(ABOUT, ?wxID_ABOUT).  %% Use OS specific
+-define(QUIT,  ?wxID_EXIT).
+-define(ABOUT, ?wxID_ABOUT).
 -define(SIGNUP,?wxID_OK).
 
-%%长方形的边角半径
+%%rectangle circular bead
 -define(BRD,10).
 -define(ARC_R, 10).
 
--record(pos,{xy={1,1},val=2}).
 
 -define(UP,87).
 -define(DOWN,83).
@@ -43,8 +45,27 @@
 -define(RIGHT,68).
 -define(ENTER,13).
 
-%%online game
--record(player,{node,pid,name="NotSignUp"}).
-
-%% for sign up
+%%  sign up name max length
 -define(MAX_NAME_LENGHT,15).
+
+%% ===================================================================
+%% Records
+%% ===================================================================
+-record(pos,{
+    xy={1,1}:: {integer(),integer()},
+    val=2:: integer()
+}).
+
+%%online game player.
+-record(player,{
+    node::atom(),
+    pid::pid(),
+    name="NotSignUp"::string()
+}).
+
+%% ===================================================================
+%% Type
+%% ===================================================================
+-type player()::#player{}.
+
+-endif.

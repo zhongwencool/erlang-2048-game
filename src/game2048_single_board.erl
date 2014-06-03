@@ -7,7 +7,6 @@
 %%% Created : 18. May 2014 3:14 PM
 %%%-------------------------------------------------------------------
 -module(game2048_single_board).
--author("zhongwencool@gmail.com").
 
 %% API
 -export([new/1,setup_board/2,get_board_score_data/1,set_board_score_data/2,set_new_name/2]).
@@ -17,28 +16,45 @@
 
 -include("game2048.hrl").
 
--record(state, {win, parent, board=[], pen, fonts=[],score=0,name="NotSignUp"}).
+-record(state, {win::pid(),%% self board pid
+    parent::pid(),%%gui pid
+    board=[]::list(),%% [#pos{}]
+    pen,%% draw pen object
+    fonts=[],%% draw fonts list
+    score=0::integer(),
+    name="NotSignUp"::list() %%signup name
+}).
 
 -behaviour(wx_object).
 
-%% API
+%%%%%%%%%%%%%%%%%%%%%%%%%% API
+%% @doc new a single board
 new(ParentObj) ->
     wx_object:start_link(?MODULE, [ParentObj, self()], []).
 
+-spec setup_board(Board::pid(),Init::list()) ->
+    ok.
 setup_board(Board, Init) ->
     wx_object:call(Board, {setup_board, Init}).
 
+-spec get_board_score_data(Board::pid()) ->
+    {ok,[integer()|list()]}.
 get_board_score_data(Board) ->
     wx_object:call(Board, get_board_score_data).
 
+-spec set_board_score_data(Board::pid(),[integer()|list()]) ->
+    ok.
 set_board_score_data(Board,Data) ->
     wx_object:call(Board, {set_board_score_data,Data}).
 
+%% @doc  begin a new game
+-spec set_new_name(Board::pid(),Name::list()) ->
+    ok.
 set_new_name(Board,Name) ->
     wx_object:call(Board, {set_new_name,Name}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%% @private
 init([ParentObj, ParentPid]) ->
     random:seed(erlang:now()),
 
@@ -71,7 +87,8 @@ init([ParentObj, ParentPid]) ->
     wxMemoryDC:destroy(TestDC),
     {Win, #state{win=Win, board=game2048_lib:init_board(), pen=Pen, fonts=Fs,parent=ParentPid}}.
 
-%% init will be call by pain callback :pain 4*4 lines
+%% @private
+%% @doc init will be call by pain callback :pain 4*4 lines
 handle_sync_event(#wx{event=#wxPaint{}}, _Obj, State = #state{win=Win}) ->
     Size = wxWindow:getSize(Win),
     DC = wxPaintDC:new(Win),
@@ -79,7 +96,7 @@ handle_sync_event(#wx{event=#wxPaint{}}, _Obj, State = #state{win=Win}) ->
     redraw(DC,Size,State),
     wxPaintDC:destroy(DC),
     ok.
-
+%% @private
 handle_event(#wx{event=#wxMouse{type=enter_window}}, State = #state{win=Win}) ->
     wxWindow:setFocus(Win), %% Get keyboard focus
     {noreply,State};
@@ -104,6 +121,7 @@ handle_event(_Ev, State) ->
     {noreply,State}.
 
 %%%%%%%%%%%%%%%%%%%
+%% @private
 handle_call({setup_board, Init},_From, State=#state{board=Board}) ->
     NewBoard = lists:foldl(fun(New=#pos{xy=XY},Acc) ->
         lists:keyreplace(XY, #pos.xy, Acc, New)
@@ -124,21 +142,25 @@ handle_call(Msg,_From,S) ->
     {reply, ok, S}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% @private
 handle_cast(Msg, State) ->
     io:format("~p:Got cast ~p~n",[?MODULE,Msg]),
     {noreply,State}.
 
+%% @private
 code_change(_, _, State) ->
     {stop, not_yet_implemented, State}.
 
+%% @private
 handle_info(Msg, State) ->
     {stop, {info, Msg}, State}.
 
+%% @private
 terminate(_Reason, _State) ->
     normal.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%% @private
 redraw(S = #state{win=Win}) ->
     DC0  = wxClientDC:new(Win),
     DC   = wxBufferedDC:new(DC0),
@@ -148,6 +170,7 @@ redraw(S = #state{win=Win}) ->
     wxClientDC:destroy(DC0),
     ok.
 
+%% @private
 redraw(DC, Size, S) ->
     wx:batch(fun() ->
         wxDC:setBackground(DC, ?wxWHITE_BRUSH),
@@ -157,6 +180,7 @@ redraw(DC, Size, S) ->
         [draw_number(DC,Fonts,Sq) || Sq = #pos{val= Val} <- S#state.board,Val =/=0]
     end).
 
+%% @private
 draw_number(DC,Fonts,#pos{xy={PosX, PosY}, val = Num}) ->
     NumList = integer_to_list(Num),
     Length = erlang:length(NumList),
@@ -169,6 +193,7 @@ draw_number(DC,Fonts,#pos{xy={PosX, PosY}, val = Num}) ->
     wxDC:drawText(DC, NumList, {(PosX-1)*95+XInit,YInit+(PosY-1)*95}),
     ok.
 
+%% @private
 draw_board(DC,{W0,H0},#state{pen=Pen}) ->
     BoxSz = game2048_lib:getGeomSz(W0,H0),
     BS = ?BRD+4*BoxSz,
@@ -188,6 +213,7 @@ draw_board(DC,{W0,H0},#state{pen=Pen}) ->
     wxDC:drawLine(DC, {?BRD, ?BRD+BoxSz*4}, {BS, ?BRD+BoxSz*4}),
     BoxSz.
 
+%% @private
 do_right(State=#state{board = Board,score = OldScore,name = Name}) ->
     {NewBoard, AddScore} = do_right2(Board,OldScore,Name),
     Score = OldScore+AddScore,
@@ -196,7 +222,7 @@ do_right(State=#state{board = Board,score = OldScore,name = Name}) ->
     game2048_client:update_board_to_other(NewBoard,Score),
     game2048_gui:update_score_from_self(Score),
     NewState.
-
+%% @private
 do_right2(Board,OldScore,Name) ->
     BoardListT = classify_by_xy(Board,y),
     Fun = fun(#pos{xy={X1,_Y1}},#pos{xy={X2,_Y2}}) -> X1> X2 end,
@@ -210,6 +236,7 @@ do_right2(Board,OldScore,Name) ->
     HasChange = is_change(NewBoardList1,Board),
     {add_new_num(NewBoardList1,Score,OldScore,Name,HasChange),Score}.
 
+%% @private
 do_left(State=#state{board=Board,score = OldScore,name = Name}) ->
     {NewBoard,AddScore} = do_left2(Board,OldScore,Name),
     Score = OldScore+AddScore,
@@ -219,6 +246,7 @@ do_left(State=#state{board=Board,score = OldScore,name = Name}) ->
     game2048_gui:update_score_from_self(Score),
     NewState.
 
+%% @private
 do_left2(Board,OldScore,Name) ->
     BoardListT = classify_by_xy(Board,y),
     Fun = fun(#pos{xy={X1,_Y1}},#pos{xy={X2,_Y2}}) -> X1> X2 end,
@@ -232,6 +260,7 @@ do_left2(Board,OldScore,Name) ->
     HasChange = is_change(NewBoardList1,Board),
     {add_new_num(NewBoardList1,Score,OldScore,Name,HasChange),Score}.
 
+%% @private
 do_up(State=#state{board=Board,score = OldScore,name = Name}) ->
     {NewBoard, AddScore} = do_up2(Board,OldScore,Name),
     Score = OldScore+AddScore,
@@ -241,6 +270,7 @@ do_up(State=#state{board=Board,score = OldScore,name = Name}) ->
     game2048_gui:update_score_from_self(Score),
     NewState.
 
+%% @private
 do_up2(Board,OldScore,Name) ->
     BoardListT = classify_by_xy(Board,x),
     Fun = fun(#pos{xy={_X1,Y1}},#pos{xy={_X2,Y2}}) -> Y1> Y2 end,
@@ -253,6 +283,7 @@ do_up2(Board,OldScore,Name) ->
     HasChange = is_change(NewBoardList1,Board),
     {add_new_num(NewBoardList1,Score,OldScore,Name,HasChange),Score}.
 
+%% @private
 do_down(State=#state{board=Board, score = OldScore,name =Name}) ->
     {NewBoard,AddScore} = do_down2(Board,OldScore,Name),
     Score = OldScore+AddScore,
@@ -262,6 +293,7 @@ do_down(State=#state{board=Board, score = OldScore,name =Name}) ->
     game2048_gui:update_score_from_self(Score),
     NewState.
 
+%% @private
 do_down2(Board,OldScore,Name) ->
     BoardListT = classify_by_xy(Board,x),
     Fun = fun(#pos{xy={_X1,Y1}},#pos{xy={_X2,Y2}}) -> Y1> Y2 end,
@@ -275,6 +307,7 @@ do_down2(Board,OldScore,Name) ->
     HasChange = is_change(NewBoardList1,Board),
     {add_new_num(NewBoardList1,Score,OldScore,Name,HasChange),Score}.
 
+%% @private
 %% x ->[#pos{xy={X,1},#pos{xy={X,2},#pos{xy={X,3},#pos{xy={X,4}]
 %% y ->[#pos{xy={1,Y},#pos{xy={2,Y},#pos{xy={3,Y},#pos{xy={4,Y}]
 %% tip: not guarantee order
@@ -289,6 +322,7 @@ classify_by_xy(List,Dir) ->
         end
     end, [[],[],[],[]],List).
 
+%% @private
 %% @return List1++List2, List1-->#pos{} val=/=0,List-->#pos{} val=:=0
 %% tip: not guarantee order
 classify_out_zero([#pos{xy={X,_Y}}|_]=ListT,up) ->
@@ -329,6 +363,7 @@ classify_out_zero([#pos{xy={_,Y}}|_]=ListT,left) ->
     end,{[],1},List),
     NewList++make_zero_list(erlang:length(NewList),Y,left).
 
+%% @private
 make_zero_list(4,_,_) ->
     [];
 make_zero_list(3,X,left) ->
@@ -366,6 +401,8 @@ make_zero_list(1,Y,down) ->
     [#pos{xy={Y,1},val=0},#pos{xy={Y,2},val=0},#pos{xy={Y,3},val=0}];
 make_zero_list(0,Y,down) ->
     [#pos{xy={Y,4},val=0},#pos{xy={Y,3},val=0},#pos{xy={Y,2},val=0},#pos{xy={Y,1},val=0}].
+
+%% @private
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%  --X1--X2--X3--X4 -->X
 %%% |
@@ -487,6 +524,7 @@ merge_list([T4=#pos{val=TV4},T3=#pos{val=TV3},T2=#pos{val=TV2},T1=#pos{val=TV1}]
     end,
     {[T44,T33,T22,T11],Score}.
 
+%% @private
 add_new_num(BoardList,Score,OldScore,Name,IsChange) ->
     case find_zero_pos(BoardList) of
         []  ->
@@ -504,9 +542,11 @@ add_new_num(BoardList,Score,OldScore,Name,IsChange) ->
            BoardList
     end.
 
+%% @private
 find_zero_pos(BoardList) ->
     lists:filter(fun(#pos{val=Val}) -> Val=:=0 end, BoardList).
 
+%% @private
 is_game_over(0,BoardList,Score,Name) ->
     IsAlive = lists:any(fun(#pos{xy = {X,Y},val = Val}) ->
         Alive1 = case lists:keyfind({X-1,Y},#pos.xy,BoardList) of
@@ -535,5 +575,6 @@ is_game_over(0,BoardList,Score,Name) ->
 is_game_over(_,_,_,_)->
     ok.
 
+%% @private
 is_change(NewList,OldList) ->
     not lists:all(fun(Mem) -> lists:member(Mem,NewList) end,OldList).

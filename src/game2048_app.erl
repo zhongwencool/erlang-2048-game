@@ -2,7 +2,7 @@
 %%% @author zhongwencool@gmail.com
 %%% @copyright (C) 2014, <COMPANY>
 %%% @doc
-%%%
+%%%   application behaviours
 %%% @end
 %%% Created : 30. May 2014 9:17 PM
 %%%-------------------------------------------------------------------
@@ -21,7 +21,6 @@
 %%%===================================================================
 
 %%--------------------------------------------------------------------
-%% @private
 %% @doc
 %% This function is called whenever an application is started using
 %% application:start/[1,2], and should start the processes of the
@@ -45,7 +44,6 @@ start(_StartType, _StartArgs) ->
     end.
 
 %%--------------------------------------------------------------------
-%% @private
 %% @doc
 %% This function is called whenever an application has stopped. It
 %% is intended to be the opposite of Module:start/2 and should do

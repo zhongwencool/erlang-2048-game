@@ -1,0 +1,6 @@
+%% encoding: UTF-8
+{application,game2048}.
+{packages,[]}.
+{modules,[game2048,game2048_app,game2048_center,game2048_chat_board,
+          game2048_client,game2048_compare_board,game2048_gui,game2048_lib,
+          game2048_single_board,game2048_sup]}.
