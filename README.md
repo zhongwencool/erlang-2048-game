@@ -31,8 +31,13 @@
 - 	5.4 chat with other : write msg in blew dialogue, print Enter to send msg.
 
 -------------------------------------------------------------------------
-if you just want to play alone, you can :
+If you just want to play alone, you can :
 	
 	erl -name test
     >application:start(game2048).
     >appliccation:stop(game2048).
+
+---------------------------------------------------------------------------
+Find work flow in  **[Wiki](https://github.com/zhongwencool/2048/wiki)**
+
+ Html Doc generate by Erlang Edoc :**[Document](https://github.com/zhongwencool/2048/tree/master/doc)**
