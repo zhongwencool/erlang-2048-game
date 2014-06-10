@@ -41,3 +41,4 @@ If you just want to play alone, you can :
 Find work flow in  **[Wiki](https://github.com/zhongwencool/2048/wiki)**
 
  Html Doc generate by Erlang Edoc :**[Document](https://github.com/zhongwencool/2048/tree/master/doc)**
+![gamepic](http://zhongwencool.qiniudn.com/erlang2048.png)
