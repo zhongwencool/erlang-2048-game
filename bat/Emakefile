@@ -5,7 +5,7 @@
  ], 
  [	
 	{i, ".."},
- 	{i, "../include"},
+ 	{I, "../INCLUDE"},
   	{outdir, "../ebin"},
 	{inline_size, 30},
 	report,

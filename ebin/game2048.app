@@ -1,19 +1,11 @@
-%%%-------------------------------------------------------------------
-%%% @author zhongwencool@gmail.com
-%%% @copyright (C) 2014, <COMPANY>
-%%% @doc
-%%%
-%%% @end
-%%% Created : 30. May 2014 9:28 PM
-%%%-------------------------------------------------------------------
-{application, game2048, [
-    {description, "pure erlang game 2048 for fun"},
-    {vsn, "1"},
-    {registered, []},
-    {applications, [
-        kernel,
-        stdlib
-    ]},
-    {mod, {game2048_app, []}},
-    {env, []}
-]}.
+{application,game2048,
+             [{description,"pure erlang game 2048 for fun"},
+              {vsn,"1"},
+              {registered,[]},
+              {applications,[kernel,stdlib]},
+              {mod,{game2048_app,[]}},
+              {env,[]},
+              {modules,[game2048,game2048_app,game2048_center,
+                        game2048_chat_board,game2048_client,
+                        game2048_compare_board,game2048_gui,game2048_lib,
+                        game2048_single_board,game2048_sup]}]}.
