@@ -14,7 +14,7 @@
 -export([select_font/2,select_dis_color/1,getGeomSz/2,init_board/0,init_pen_fs/0]).
 
 %% @doc find suitable font by Bs from list
--spec select_font(Length::integer(),Fonts::list()) -> func .
+-spec select_font(Length::integer(),Fonts::list()) -> func() .
 select_font(_BS,[{_Sz,_H,F}]) ->
     F;
 select_font(BS,[{Sz,_H,F}|_]) when BS >= Sz ->
@@ -28,7 +28,6 @@ select_dis_color(1) ->
     {31,7,{0,0,123}};
 select_dis_color(2) ->
     {24,20,{0,123,0}};
-
 select_dis_color(3) ->
     {16,35,{123,0,0}};
 select_dis_color(4) ->
