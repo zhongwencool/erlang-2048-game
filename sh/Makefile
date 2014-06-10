@@ -8,5 +8,5 @@ mmake:
 build:
 	erl -pa ../ebin/ -noinput -eval "case mmake:all(16,[{d, 'dummmmmy'}]) of up_to_date -> halt(0); error -> halt(1) end."
 clean:
-	@echo "clean ebin/*"
-	(rm -rf ../ebin/*)
+	@echo "clean ebin/*.beam"
+	(rm -rf ../ebin/*.beam)
