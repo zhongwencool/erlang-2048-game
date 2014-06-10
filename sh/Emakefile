@@ -1,0 +1,15 @@
+% -*- mode: erlang -*-
+% 
+{[	
+    "../src/*"
+ ], 
+ [	
+	{i, ".."},
+ 	{i, "../include"},
+  	{outdir, "../ebin"},
+	{inline_size, 30},
+	report,
+	warnings_as_errors,
+	verbose
+ ]
+}.
