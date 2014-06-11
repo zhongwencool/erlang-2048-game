@@ -24,7 +24,7 @@
   
    2.2 linux:
      	
-		make build 
+		make 
      
 **3.  set center_server up**
 	
@@ -34,7 +34,7 @@
   
    3.2 linux:
 	
-	./sh/start_server
+	./sh/start_server.sh
 **4. run game2048 client**
 
 4.1 windows:
@@ -43,7 +43,7 @@
 
 4.2 linux:
 	
-	./sh/start_client
+	./sh/start_client.sh
 
 **5. Tip**
 	
