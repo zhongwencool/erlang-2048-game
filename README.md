@@ -1,50 +1,27 @@
 **0 . prework**
 
-    intall erlang and set erlang PATH.
+    Windows intall erlang and set erlang PATH.
 
 **1. config**
 
 - change your center name in game2048.hrl, format as : game2048_center@IP
-- for example: game2048_center@127.0.0.1
-
-    1.1 windows: 
+- for example: game2048_center@127.0.0.1 
 	
-	change ./bat/center_server.bat node name       : game2048_center@IP
+		change ./bat/center_server.bat node name       : game2048_center@IP
 	
-    1.2 linux:
-	
-	change ./sh/start_server node's name       : game2048_center@IP
-
 
 **2. compile**
 
-2.1 windows:
 		
 		double click ./bat/compile.bat
-  
-   2.2 linux:
-     	
-		make 
      
 **3.  set center_server up**
-	
-   3.1 windows:
      	
 	double click ./bat/center_server.bat
   
-   3.2 linux:
-	
-	./sh/start_server.sh
 **4. run game2048 client**
 
-4.1 windows:
-     
 	double click ./bat/player1.bat
-
-4.2 linux:
-	
-	./sh/start_client.sh
-
 **5. Tip**
 	
 -   5.1 press down 
