@@ -2,7 +2,7 @@
 
     Windows intall erlang and set erlang PATH.
 
-**1. config**
+**1. config **
 
 - change your center name in game2048.hrl, format as : game2048_center@IP
 - for example: game2048_center@127.0.0.1 
